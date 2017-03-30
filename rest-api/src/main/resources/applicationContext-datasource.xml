@@ -1,0 +1,26 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.mina.repository"/>
+
+    <bean id="dataSource" destroy-method="close"
+          class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.app.driver}"/>
+        <property name="url" value="${jdbc.app.url}"/>
+        <property name="username" value="${jdbc.app.username}"/>
+        <property name="password" value="${jdbc.app.password}"/>
+        <property name="initialSize" value="${jdbc.app.initialSize}"/>
+        <property name="maxIdle" value="${jdbc.app.maxIdle}"/>
+        <property name="validationQuery" value="${jdbc.app.validationQuery}"/>
+    </bean>
+
+     <!--add transaction-->
+
+
+
+</beans>
+
+

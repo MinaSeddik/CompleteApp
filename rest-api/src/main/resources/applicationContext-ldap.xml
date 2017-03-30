@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:ldap="http://www.springframework.org/schema/ldap"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+                   http://www.springframework.org/schema/ldap
+       http://www.springframework.org/schema/ldap/spring-ldap.xsd">
+
+    <context:component-scan base-package="com.mina.security.ldap"/>
+
+    <bean id="simpleDirContextAuthenticationStrategy"
+          class="org.springframework.ldap.core.support.SimpleDirContextAuthenticationStrategy"/>
+
+    <ldap:context-source url="${ldap.url}"
+                         base="${ldap.base}"
+                         username="${ldap.username}"
+                         password="${ldap.password}"
+                         authentication-strategy-ref="simpleDirContextAuthenticationStrategy"
+                         native-pooling="true"/>
+
+    <ldap:ldap-template id="ldapTemplate"/>
+
+</beans>
