@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by menai on 2017-03-15.
  */
-@Component
+//@Component
 public class MixedSimpleLdapAuthenticationProvider implements AuthenticationProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(MixedSimpleLdapAuthenticationProvider.class);

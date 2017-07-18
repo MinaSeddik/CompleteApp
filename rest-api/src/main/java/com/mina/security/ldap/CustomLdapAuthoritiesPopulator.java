@@ -12,7 +12,7 @@ import java.util.HashSet;
 /**
  * Created by menai on 2017-03-29.
  */
-@Component
+//@Component
 public class CustomLdapAuthoritiesPopulator implements LdapAuthoritiesPopulator {
 
     @Override

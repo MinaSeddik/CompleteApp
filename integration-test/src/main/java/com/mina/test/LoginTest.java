@@ -11,9 +11,8 @@ public class LoginTest {
     @Test
     public void loginTest() {
 
-        String userName = "www";
-        String password = "www";
-
+        String userName = "root";
+        String password = "root";
 
         AppScenario.startAppScenario()
                 .startSimpleLoginScenario()

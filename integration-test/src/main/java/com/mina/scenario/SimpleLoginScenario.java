@@ -20,7 +20,7 @@ public class SimpleLoginScenario {
     public SimpleLoginScenario login(String userName, String password) {
 
         String path = UrlTemplate.getLoginUrl();
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("username", userName);
         map.add("password", password);
 
