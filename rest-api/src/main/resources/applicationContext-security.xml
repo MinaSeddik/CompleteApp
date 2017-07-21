@@ -43,45 +43,14 @@
     <global-method-security secured-annotations="enabled"/>
 
     <beans:bean class="com.mina.security.auth.SimpleAuthenticationProvider"/>
+    <beans:bean id = "mixedSimpleLdapAuthenticationProvider" class="com.mina.security.ldap.MixedSimpleLdapAuthenticationProvider"/>
+
+
     <authentication-manager erase-credentials="true">
-        <authentication-provider ref='ldapAuthProvider'/>
+        <!--<authentication-provider ref='ldapAuthProvider'/>-->
         <!--<authentication-provider ref='simpleAuthenticationProvider'/>-->
+        <authentication-provider ref='mixedSimpleLdapAuthenticationProvider'/>
     </authentication-manager>
 
-    <beans:bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-        <beans:constructor-arg value="${ldap.url}"/>
-        <beans:property name="base" value="${ldap.base}"/>
-        <beans:property name="userDn" value="${ldap.username}"/>
-        <beans:property name="password" value="${ldap.password}"/>
-        <beans:property name="baseEnvironmentProperties">
-            <beans:map>
-                <beans:entry key="java.naming.ldap.version" value="3"/>
-            </beans:map>
-        </beans:property>
-    </beans:bean>
-
-    <beans:bean id="ldapAuthProvider"
-                class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
-        <beans:constructor-arg>
-            <beans:bean id="bindAuthenticator"
-                        class="org.springframework.security.ldap.authentication.BindAuthenticator">
-                <beans:constructor-arg ref="contextSource"/>
-                <beans:property name="userDnPatterns">
-                    <beans:list>
-                        <beans:value>uid={0},ou=Users</beans:value>
-                    </beans:list>
-                </beans:property>
-            </beans:bean>
-        </beans:constructor-arg>
-        <beans:constructor-arg>
-            <beans:bean class="org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator">
-                <beans:constructor-arg ref="contextSource"/>
-                <beans:constructor-arg value="ou=groups"/> <!-- group search base -->
-                <beans:property name="searchSubtree" value="true"/>
-                <beans:property name="ignorePartialResultException" value="true"/>
-                <beans:property name="groupSearchFilter" value="(memberUid={1})"/>
-            </beans:bean>
-        </beans:constructor-arg>
-    </beans:bean>
 
 </beans:beans>

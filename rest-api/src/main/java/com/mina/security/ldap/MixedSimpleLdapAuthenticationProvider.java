@@ -13,12 +13,15 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -46,7 +49,7 @@ public class MixedSimpleLdapAuthenticationProvider implements AuthenticationProv
         String userName = authentication.getName();
 
         logger.debug("find LDAP groups for user: {}", userName);
-        List<String> groups = findLdapGroups(userName);
+        List<GrantedAuthority> groups = findLdapGroups(userName);
 
         logger.debug("there are {} LDAP groups for user: {}, {}", groups.size(), userName, groups);
 
@@ -78,27 +81,23 @@ public class MixedSimpleLdapAuthenticationProvider implements AuthenticationProv
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 
-    private List<String> findLdapGroups(String userName) {
+    private List<GrantedAuthority> findLdapGroups(String userName) {
 
         logger.info("searchFilter : {}", searchFilter);
-        logger.info("ldapBase : {}", ldapBase);
+        String base = "ou=groups";
 
         String searchfilterForUser = searchFilter.replace("{0}", userName);
         logger.info("searchfilterForUser : {}", searchfilterForUser);
 
-        List<String> list = ldapTemplate.search("", searchfilterForUser,
-                new AttributesMapper() {
-                    public Object mapFromAttributes(Attributes attrs)
-                            throws NamingException {
-
-
-                        return attrs.get("cn").get().toString();
-                    }
-                });
+        List<String> list = ldapTemplate.search(base, searchfilterForUser,
+                (Attributes attrs)  -> { return attrs.get("cn").get().toString();} );
 
         logger.info("list size : {}", list.size());
         logger.info("groups : {}", list);
-        return list;
+
+
+        return list.stream().map(gName -> new SimpleGrantedAuthority("ROLE_" + gName.toUpperCase()))
+                .collect(Collectors.toList());
     }
 
 }
