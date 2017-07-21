@@ -2,7 +2,6 @@
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:context="http://www.springframework.org/schema/context"
-             xmlns:ldap="http://www.springframework.org/schema/c"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
@@ -43,22 +42,11 @@
     <!-- Enable the annotations for defining the secure role -->
     <global-method-security secured-annotations="enabled"/>
 
-    <beans:bean class="com.mina.security.auth.SimpleAuthenticationProvider" />
+    <beans:bean class="com.mina.security.auth.SimpleAuthenticationProvider"/>
     <authentication-manager erase-credentials="true">
         <authentication-provider ref='ldapAuthProvider'/>
         <!--<authentication-provider ref='simpleAuthenticationProvider'/>-->
     </authentication-manager>
-
-
-
-
-
-
-
-
-
-
-
 
     <beans:bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
         <beans:constructor-arg value="${ldap.url}"/>
@@ -72,12 +60,16 @@
         </beans:property>
     </beans:bean>
 
-    <beans:bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+    <beans:bean id="ldapAuthProvider"
+                class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
         <beans:constructor-arg>
-            <beans:bean id="bindAuthenticator" class="org.springframework.security.ldap.authentication.BindAuthenticator">
+            <beans:bean id="bindAuthenticator"
+                        class="org.springframework.security.ldap.authentication.BindAuthenticator">
                 <beans:constructor-arg ref="contextSource"/>
                 <beans:property name="userDnPatterns">
-                    <beans:list><beans:value>uid={0},ou=Users</beans:value></beans:list>
+                    <beans:list>
+                        <beans:value>uid={0},ou=Users</beans:value>
+                    </beans:list>
                 </beans:property>
             </beans:bean>
         </beans:constructor-arg>
