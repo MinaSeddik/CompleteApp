@@ -23,7 +23,7 @@ public class SimpleUrlAuthenticationFailHandler implements AuthenticationFailure
                                         AuthenticationException exception)
             throws IOException, ServletException {
 
-        String responseJson = "{statusCode : " + HttpServletResponse.SC_UNAUTHORIZED + ", message : \"Invalid Credentials\" }";
+        String responseJson = "{\"statusCode\" : \"" + HttpServletResponse.SC_UNAUTHORIZED + "\", \"message\" : \"Invalid Credentials\" }";
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         logger.debug("Invalid login : {}", exception.getMessage());

@@ -20,6 +20,9 @@
     <beans:bean id="appFailureHandler"
                 class="com.mina.security.SimpleUrlAuthenticationFailHandler"/>
 
+    <beans:bean id="appLogoutHandler"
+                class="com.mina.security.SimpleLogoutSuccessHandler"/>
+
     <http use-expressions="true" entry-point-ref="appEntryPoint">
 
         <intercept-url pattern="/" access="permitAll"/>
@@ -33,7 +36,10 @@
                 authentication-success-handler-ref="appSuccessHandler"
                 authentication-failure-handler-ref="appFailureHandler"
         />
-        <logout logout-url="/logout"/>
+        <logout logout-url="/logout"
+                invalidate-session="true"
+                delete-cookies="JSESSIONID"
+                success-handler-ref="appLogoutHandler"/>
         <http-basic/>
         <csrf disabled="true"/>
     </http>

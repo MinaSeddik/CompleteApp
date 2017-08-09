@@ -41,6 +41,18 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+
+    <filter>
+        <filter-name>simpleCORSFilter</filter-name>
+        <filter-class>
+            com.mina.filter.SimpleCORSFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>simpleCORSFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

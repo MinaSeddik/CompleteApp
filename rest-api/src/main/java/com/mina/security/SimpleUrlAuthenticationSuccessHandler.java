@@ -23,7 +23,7 @@ public class SimpleUrlAuthenticationSuccessHandler implements AuthenticationSucc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        String responseJson = "{statusCode : \"OK\", message : \"Successful login\" }";
+        String responseJson = "{\"statusCode\" : \"OK\", \"message\" : \"Successful login\" }";
         response.setStatus(HttpServletResponse.SC_OK);
 
         logger.debug("Successful login for: {}", SecurityContextHolder.getContext().getAuthentication().getName());

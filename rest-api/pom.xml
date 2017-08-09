@@ -142,6 +142,13 @@
             <version>1.3.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>7.0.79</version>
+        </dependency>
+
 
     </dependencies>
 
