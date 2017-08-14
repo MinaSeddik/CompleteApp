@@ -8,6 +8,8 @@ import com.mina.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by menai on 2017-03-22.
  */
@@ -30,5 +32,13 @@ public class DefaultCityService implements CityService {
 
         return orikaMapper.map(cityEntity, City.class);
     }
+
+    @Override
+    public List<City> getAllCities() {
+        List<CityEntity> cityEntityList = cityRepository.getAllCities();
+
+        return orikaMapper.mapAsList(cityEntityList, City.class);
+    }
+
 
 }

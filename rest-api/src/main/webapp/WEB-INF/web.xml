@@ -21,6 +21,7 @@
             classpath:applicationContext-service.xml
             classpath:applicationContext-security.xml
             classpath:applicationContext-ldap.xml
+            classpath:applicationContext-web.xml
         </param-value>
     </context-param>
 

@@ -17,8 +17,8 @@ public class V1_18__CountryData implements SpringJdbcMigration {
 
     @Override
     public void migrate(JdbcTemplate jdbcTemplate) throws Exception {
-        String country1 = "('Montreal', true, 1, now())";
-        String country2 = "('Ottwa', true, 1, now())";
+        String country1 = "('Canada', true, 1, now())";
+        String country2 = "('Egypt', true, 1, now())";
 
         List countries = Arrays.asList(country1, country2);
 

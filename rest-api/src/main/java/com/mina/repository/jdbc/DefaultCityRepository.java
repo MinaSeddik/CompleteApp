@@ -25,6 +25,8 @@ public class DefaultCityRepository extends QueryController implements CityReposi
 
     private static final String SELECT_CITY_BY_ID = "SELECT * FROM city WHERE id = :id";
 
+    private static final String SELECT_ALL_CITIES= "SELECT * FROM city";
+
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -44,6 +46,17 @@ public class DefaultCityRepository extends QueryController implements CityReposi
         logger.debug("CityEntity Id: {}, there is {} elements", id, locationEntityList.size());
 
         return locationEntityList.get(0);
+    }
+
+    @Override
+    public List<CityEntity> getAllCities() {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+
+        List<CityEntity> locationEntityList = jdbcTemplate.query(SELECT_ALL_CITIES, new CityRowMapper());
+
+        logger.debug("CityEntity -> there are {} elements", locationEntityList.size());
+
+        return locationEntityList;
     }
 
 }
